@@ -10,7 +10,9 @@
     source.connect(worklet);
     worklet.connect(context.destination);
 
+    // REAGUJ NA WIADOMOŚCI OD WORKLETU
     worklet.port.onmessage = (event) => {
+      // EVENT Z DANYMI JEST KSZTAŁTU `{data: {type: 'data', samples: Int16Array}}`
       if (event.data?.type === 'data') {
         console.log(event.data.samples);
       }
@@ -27,6 +29,7 @@
 
   startButton.addEventListener('click', start);
   stopButton.addEventListener('click', () => {
+    // WYSŁANIE `stop` kończy processing w worklecie i wysyła postMessage `type` z zebranymi samplami
     worklet.port.postMessage('stop');
   })
 })()
