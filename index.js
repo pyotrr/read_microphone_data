@@ -9,6 +9,12 @@
 
     source.connect(worklet);
     worklet.connect(context.destination);
+
+    worklet.port.onmessage = (event) => {
+      if (event.data?.type === 'data') {
+        console.log(event.data.samples);
+      }
+    }
   };
 
   const startButton = document.getElementById('start');
